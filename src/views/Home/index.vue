@@ -31,7 +31,7 @@
                 </div>
               </v-col>
               <v-col cols="12" md="6">
-                <v-form>
+                <validation-observer ref="form" tag="form" @submit.prevent="submit">
                   <v-row no-gutters>
                     <v-col cols="12">
                       <validation-provider
@@ -65,7 +65,7 @@
                         v-slot="{errors}"
                       >
                         <v-text-field
-                           class="mb-1 mb-md-3"
+                          class="mb-1 mb-md-3"
                           :error-messages="errors"
                           color="grey"
                           @focus="rotate = false"
@@ -83,7 +83,7 @@
                         ref="expirationDateProvider"
                       >
                         <v-text-field
-                           class="mb-1 mb-md-3"
+                          class="mb-1 mb-md-3"
                           ref="expirationDate"
                           :error-messages="errors"
                           color="grey"
@@ -104,7 +104,7 @@
                         v-slot="{errors}"
                       >
                         <v-text-field
-                           class="mb-1 mb-md-3"
+                          class="mb-1 mb-md-3"
                           v-model="form.code"
                           :error-messages="errors"
                           color="grey"
@@ -118,29 +118,45 @@
                       </validation-provider>
                     </v-col>
                     <v-col cols="12">
-                      <v-select
-                        :items="payments"
-                        color="grey"
-                        label="Número de parcelas"
-                        append-icon="fa-chevron-down"
-                        v-model="form.payment"
-                        item-value="value"
-                        item-text="label"
-                        return-object
-                        @focus="rotate = false"
+                      <validation-provider
+                        vid="payment"
+                        name="Número de parcelas"
+                        rules="required"
+                        v-slot="{errors}"
                       >
-                        <template v-slot:no-data>
-                          <div class="pa-4 text-center">Sem conteúdo</div>
-                        </template>
-                      </v-select>
+                        <v-select
+                          :error-messages="errors"
+                          :items="payments"
+                          color="grey"
+                          label="Número de parcelas"
+                          append-icon="fa-chevron-down"
+                          v-model="form.payment"
+                          item-value="value"
+                          item-text="label"
+                          return-object
+                          @focus="rotate = false"
+                        >
+                          <template v-slot:no-data>
+                            <div class="pa-4 text-center">Sem conteúdo</div>
+                          </template>
+                        </v-select>
+                      </validation-provider>
                     </v-col>
                   </v-row>
                   <v-row class="mt-md-10 d-flex justify-md-end">
                     <v-col md="7">
-                      <v-btn x-large color="color1" dark block height="51" elevation="0">continuar</v-btn>
+                      <v-btn
+                        type="submit"
+                        x-large
+                        color="color1"
+                        dark
+                        block
+                        height="51"
+                        elevation="0"
+                      >continuar</v-btn>
                     </v-col>
                   </v-row>
-                </v-form>
+                </validation-observer>
               </v-col>
             </v-row>
           </div>
@@ -229,6 +245,13 @@ export default {
       },
     },
   },
+  methods: {
+    async submit() {
+      const isValid = this.$refs.form.validate();
+      if (!isValid) return;
+      console.log('Enviou');
+    },
+  },
 };
 </script>
 
@@ -288,7 +311,7 @@ export default {
         margin: 0;
         margin-left: 24px;
         @media (min-width: 960px) {
-           margin-left: 40px;
+          margin-left: 40px;
         }
       }
 
