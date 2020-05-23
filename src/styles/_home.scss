@@ -1,0 +1,34 @@
+#checkout {
+    .theme--light {
+        &.v-input {
+            color: var(--color-4);
+        }
+        &.v-label {
+            color: var(--color-4) !important;
+        }
+        &.v-text-field > .v-input__control > .v-input__slot:before{
+            color: var(--color-4) !important;
+            border-color: var(--color-4) !important;
+        }
+    }
+    .v-btn {
+        border-radius: 10px;
+    }
+    .v-select {
+        .v-icon, .v-icon.grey--text {
+            color: var(--color-1)!important;
+            font-size: 18px;
+        }
+    }
+
+    .v-input--is-loading {
+        .v-progress-linear__indeterminate {
+            &.short, &.long {
+                background-color: var(--color-1) !important;
+                border-color: var(--color-1) !important;
+            }
+        }
+    }
+
+    
+}
