@@ -37,7 +37,7 @@
                       <validation-provider
                         ref="cardNumberProvider"
                         vid="cardNumber"
-                        name="Número do cartão"
+                        name="número do cartão"
                         rules="required|cardNumber"
                         v-slot="{errors}"
                       >
@@ -60,7 +60,7 @@
                     <v-col cols="12">
                       <validation-provider
                         vid="name"
-                        name="Nome"
+                        name="nome"
                         rules="required|fullName"
                         v-slot="{errors}"
                       >
@@ -77,8 +77,8 @@
                     <v-col cols="6 pr-2">
                       <validation-provider
                         vid="expirationDate"
-                        name="Validade"
-                        rules="required|expirationDateCard"
+                        name="validade"
+                        rules="expirationDateCard"
                         v-slot="{errors}"
                         ref="expirationDateProvider"
                       >
@@ -120,7 +120,7 @@
                     <v-col cols="12">
                       <validation-provider
                         vid="payment"
-                        name="Número de parcelas"
+                        name="número de parcelas"
                         rules="required"
                         v-slot="{errors}"
                       >

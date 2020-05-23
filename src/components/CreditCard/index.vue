@@ -171,14 +171,14 @@ export default {
       }
     }
     .front {
-      background: url("~@/assets/bg-card-front.svg") no-repeat center, #ccc;
+      background: url("~@/assets/bg-card-front.svg") no-repeat center, #727272;
       background-size: cover;
       flex-wrap: wrap;
       align-content: space-between;
       backface-visibility: hidden;
     }
     .back {
-      background: url("~@/assets/bg-card-back.svg") no-repeat center, #ccc;
+      background: url("~@/assets/bg-card-back.svg") no-repeat center, #727272;
       background-size: cover;
       align-items: center;
       justify-content: center;
