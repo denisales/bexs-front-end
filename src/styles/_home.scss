@@ -6,10 +6,9 @@
         &.v-label {
             color: var(--color-4) !important;
         }
-        &.v-text-field > .v-input__control > .v-input__slot:before{
-            color: var(--color-4) !important;
-            border-color: var(--color-4) !important;
-        }
+       &.v-text-field > .v-input__control > .v-input__slot:before {
+            border-color: currentColor;
+       }
     }
     .v-btn {
         border-radius: 10px;
