@@ -1,3 +1,3 @@
 export default function validate(value) {
-  return value.length === 3;
+  return value.length > 2;
 }

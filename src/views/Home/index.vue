@@ -55,7 +55,7 @@
                           ref="cardNumber"
                           :error-messages="errors"
                           v-model="form.cardNumber"
-                          v-mask="'#### #### #### ####'"
+                          v-mask="['#### ###### #####', '#### #### #### ####']"
                           color="grey"
                           type="text"
                           inputmode="numeric"
@@ -116,11 +116,12 @@
                           :error-messages="errors"
                           color="grey"
                           label="CVV"
-                          v-mask="'###'"
+                          v-mask="'####'"
                           type="text"
                           ref="code"
                           inputmode="numeric"
                           @focus="rotate = true"
+                          maxlength="4"
                         >
                           <template v-slot:append>
                             <v-tooltip top>
@@ -233,8 +234,9 @@ export default {
   watch: {
     'form.cardNumber': {
       async handler(newValue) {
-        if (newValue.length === 19) {
-          const { valid } = await this.$refs.cardNumberProvider.validate();
+        const cardnumber = newValue.replace(/[^0-9]+/g, '');
+        if (cardnumber.length >= 13) {
+          const { valid } = await this.$refs.cardNumberProvider.validateSilent();
           if (!valid) {
             this.cardValid = false;
             return;
@@ -244,13 +246,6 @@ export default {
           return;
         }
         this.cardValid = false;
-      },
-    },
-    'form.code': {
-      async handler(newValue) {
-        if (newValue.length === 3) {
-          this.$refs.code.blur();
-        }
       },
     },
     'form.expirationDate': {
