@@ -44,7 +44,7 @@
                       <validation-provider
                         ref="cardNumberProvider"
                         vid="cardNumber"
-                        name="número do cartão"
+                        name="o número do cartão"
                         rules="required|cardNumber"
                         v-slot="{errors}"
                       >
@@ -67,8 +67,8 @@
                     <v-col cols="12">
                       <validation-provider
                         vid="name"
-                        name="nome"
-                        rules="required|fullName"
+                        name="seu nome completo"
+                        rules="required"
                         v-slot="{errors}"
                       >
                         <v-text-field
@@ -84,7 +84,7 @@
                     <v-col cols="6 pr-2">
                       <validation-provider
                         vid="expirationDate"
-                        name="validade"
+                        name="a validade"
                         rules="required|expirationDateCard"
                         v-slot="{errors}"
                         ref="expirationDateProvider"
@@ -106,7 +106,7 @@
                     <v-col cols="6 pl-2">
                       <validation-provider
                         vid="code"
-                        name="CVV"
+                        name="o CVV"
                         rules="required|cvv"
                         v-slot="{errors}"
                       >
@@ -127,7 +127,7 @@
                     <v-col cols="12">
                       <validation-provider
                         vid="payment"
-                        name="número de parcelas"
+                        name="o número de parcelas"
                         rules="required"
                         v-slot="{errors}"
                       >
@@ -287,7 +287,7 @@ export default {
       height: 239px;
       z-index: 0;
       @media (min-width: 960px) {
-        width: 32%;
+        width: 34%;
         bottom: 0;
         top: 0;
         height: 100%;
