@@ -1,4 +1,5 @@
 export default function validate(value) {
+  if (!value) return true;
   const creditCardNumber = value.replace(/\s/g, '');
   const reverse = Array.from(creditCardNumber).reverse();
   const numPares = [];
