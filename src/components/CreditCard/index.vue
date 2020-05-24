@@ -3,8 +3,8 @@
     <div class="card-container">
     <div class="card">
       <div class="front">
-        <div class="card__area">
-          <span class="logo" v-if="cardIsValid"></span>
+        <div class="card__area card__area--logo">
+          <span class="logo" :class="`logo--${flag.name}`" v-if="cardIsValid && flag"></span>
         </div>
         <div class="card__area card__area--shadow">
           <div class="number">
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import identifyCardFlag from '@/helpers/identifyCardFlag';
+
 export default {
   props: {
     rotate: {
@@ -49,6 +51,17 @@ export default {
     expirationDateCard: {
       type: String,
     },
+  },
+  data() {
+    return {
+      flag: null,
+    };
+  },
+  watch: {
+    cardNumber(newValue) {
+      this.flag = identifyCardFlag(newValue);
+    },
+
   },
   computed: {
     nameCardComputed() {
@@ -173,7 +186,7 @@ export default {
     .front,
     .back {
       border-radius: 10px;
-      padding: 27px 17px;
+      padding: 14px 17px 27px;
       width: 100%;
       top: 0;
       bottom: 0;
@@ -181,7 +194,7 @@ export default {
       border: 1px solid rgba(0, 0, 0, 0.2);
       display: flex;
       @media (min-width: 960px) {
-        padding: 35px 31px;
+        padding: 20px 31px 35px;
         border-radius: 14px;
       }
     }
@@ -202,7 +215,7 @@ export default {
       span {
         position: relative;
         left: 12px;
-        top: 6px;
+        top: 12px;
         font-size: 14px;
       }
     }
@@ -212,29 +225,55 @@ export default {
       color: #fff;
       display: flex;
       justify-content: space-between;
-      min-height: 17px;
       font-size: 16x;
+      &--logo {
+        min-height: 43px;
+      }
       &--data {
         display: flex;
         justify-content: space-between;
       }
       &--shadow {
-        text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.8);
-      }
-      @media (min-width: 960px) {
-        min-height: 22px;
+        text-shadow: 0px 1px 6px rgba(0, 0, 0, 0.8);
+
+        span {
+           padding: 0 6px 1px;
+        }
       }
     }
 
     .logo {
-      width: 54px;
-      height: 17px;
       display: block;
-      background: url("~@/assets/visa-logo.png") no-repeat center;
-      background-size: contain;
-      @media (min-width: 960px) {
-        width: 69px;
-        height: 22px;
+      background: url('~@/assets/sprite-flags.png') no-repeat;
+      &--mastercard{
+        background-position: -73px -50px;
+        width: 55px;
+        height: 43px;
+      }
+      &--visa{
+        background-position: -142px -61px;
+        width: 55px;
+        height: 19px;
+      }
+      &--discover{
+        background-position: -211px -47px;
+        width: 55px;
+        height: 39px;
+      }
+      &--amex{
+        background-position: -285px -58px;
+        width: 75px;
+        height: 25px;
+      }
+      &--dinersclub{
+        background-position: -385px -55px;
+        width: 48px;
+        height: 38px;
+      }
+      &--maestro{
+        background-position: -458px -50px;
+        width: 57px;
+        height: 44px;
       }
     }
 
