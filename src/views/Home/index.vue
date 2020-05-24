@@ -241,7 +241,9 @@ export default {
           }
           this.$refs.cardNumber.blur();
           this.cardValid = true;
+          return;
         }
+        this.cardValid = false;
       },
     },
     'form.code': {
