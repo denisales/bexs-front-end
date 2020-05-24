@@ -1,6 +1,9 @@
 export default function validate(value) {
   if (!value) return true;
   const creditCardNumber = value.replace(/\s/g, '');
+  // eslint-disable-next-line no-restricted-globals
+  if (isNaN(creditCardNumber)) throw new TypeError('valor não é um número válido');
+
   const reverse = Array.from(creditCardNumber).reverse();
   const numPares = [];
   const numImpar = [];

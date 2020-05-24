@@ -3,7 +3,7 @@ import {
   addYears, addMonths, format, subYears, subMonths,
 } from 'date-fns';
 
-describe('expirationDateCardValidate', () => {
+describe('validator - expirationDateCardValidate', () => {
   it('Deve ser uma função', () => {
     expect(typeof expirationDateCardValidate).toBe('function');
   });

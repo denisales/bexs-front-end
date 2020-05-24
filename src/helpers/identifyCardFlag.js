@@ -8,7 +8,11 @@ const flags = [
   // { name: 'JCB', test: '^(?:2131|1800|35\d{3})\d{11}' },
 ];
 export default (value) => {
-  const cardnumber = value.replace(/[^0-9]+/g, '');
+  const valueString = String(value);
+  const cardnumber = valueString.replace(/\s/g, '');
+  // eslint-disable-next-line no-restricted-globals
+  if (isNaN(cardnumber)) throw new TypeError('valor não é um número válido');
+
   // eslint-disable-next-line no-restricted-syntax
   for (const flag of flags) {
     if (cardnumber.match(flag.test)) {

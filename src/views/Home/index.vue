@@ -128,7 +128,7 @@
                               <template v-slot:activator="{ on }">
                                 <v-icon size="22" color="grey" dark v-on="on">fa-info-circle</v-icon>
                               </template>
-                              <span>Insíra aqui o código de seguraça do seu cartão</span>
+                              <span>Insira aqui o código de seguraça do seu cartão</span>
                             </v-tooltip>
                           </template>
                         </v-text-field>
