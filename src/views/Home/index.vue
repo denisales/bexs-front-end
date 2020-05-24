@@ -121,7 +121,16 @@
                           ref="code"
                           inputmode="numeric"
                           @focus="rotate = true"
-                        ></v-text-field>
+                        >
+                          <template v-slot:append>
+                            <v-tooltip top>
+                              <template v-slot:activator="{ on }">
+                                <v-icon size="22" color="grey" dark v-on="on">fa-info-circle</v-icon>
+                              </template>
+                              <span>Insíra aqui o código de seguraça do seu cartão</span>
+                            </v-tooltip>
+                          </template>
+                        </v-text-field>
                       </validation-provider>
                     </v-col>
                     <v-col cols="12">
