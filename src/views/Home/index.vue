@@ -85,7 +85,7 @@
                       <validation-provider
                         vid="expirationDate"
                         name="validade"
-                        rules="expirationDateCard"
+                        rules="required|expirationDateCard"
                         v-slot="{errors}"
                         ref="expirationDateProvider"
                       >
