@@ -263,7 +263,7 @@ export default {
   },
   methods: {
     async submit() {
-      const isValid = this.$refs.form.validate();
+      const isValid = await this.$refs.form.validate();
       if (!isValid) return;
       console.log('Enviou');
     },
