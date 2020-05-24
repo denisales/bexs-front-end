@@ -1,5 +1,6 @@
 <template>
-  <div class="card-view" :class="[{'rotate': rotate}, {'is-valid': cardIsValid}]">
+ <div class="card-view" :class="[{'rotate': rotate}, {'is-valid': cardIsValid}]">
+    <div class="card-container">
     <div class="card">
       <div class="front">
         <div class="card__area">
@@ -24,6 +25,7 @@
       </div>
     </div>
   </div>
+ </div>
 </template>
 
 <script>
@@ -103,7 +105,36 @@ export default {
     opacity: 1;
   }
 }
+
 .card-view {
+  position: relative;
+  z-index: 1;
+  &::before {
+    top: 0;
+    content: "";
+    position: absolute;
+    width: 90%;
+    background:rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 20px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    transition: all 0.5s ease;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: cardRotateFront 0.5s;
+    z-index: 1;
+    height: 172px;
+    @media (min-width: 960px) {
+      height: 223px;
+    }
+  }
+  &.rotate {
+      &::before {
+      animation: cardRotateBack 0.5s;
+    }
+  }
+}
+.card-container {
+  z-index: 2;
   perspective: 1000px;
   width: 280px;
   position: relative;
@@ -113,22 +144,8 @@ export default {
     width: 364px;
     height: 223px;
   }
-  &::before {
-    top: 10px;
-    content: "";
-    position: absolute;
-    width: 90%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    filter: blur(10px);
-    border-radius: 10px;
-    transition: all 0.5s ease;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: cardRotateFront 0.5s;
-  }
 
-  &.is-valid {
+  .is-valid & {
     .front {
       background: url("~@/assets/bg-card-front-valid.svg") no-repeat center,
         #134868 !important;
@@ -141,12 +158,9 @@ export default {
     }
   }
 
-  &.rotate {
+  .rotate & {
     .card {
       transform: rotateY(180deg);
-    }
-    &::before {
-      animation: cardRotateBack 0.5s;
     }
   }
   .card {
@@ -155,6 +169,7 @@ export default {
     height: 100%;
     transition: all 0.5s ease;
     position: relative;
+     z-index: 2;
     .front,
     .back {
       border-radius: 10px;
