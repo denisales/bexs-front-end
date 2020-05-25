@@ -59,7 +59,10 @@ export default {
   },
   watch: {
     cardNumber(newValue) {
-      this.flag = identifyCardFlag(newValue);
+      const cardnumber = newValue.replace(/\s/g, '');
+      // eslint-disable-next-line no-restricted-globals
+      if (isNaN(cardnumber)) return;
+      this.flag = identifyCardFlag(cardnumber);
     },
   },
   computed: {
@@ -280,18 +283,22 @@ export default {
       display: flex;
       width: 100%;
       text-align: center;
-      font-size: 20px;
+      font-size: 18px;
       margin: 0;
       @media (min-width: 960px) {
-        letter-spacing: 2.3px;
-        font-size: 22px;
+        letter-spacing: 2.31px;
+        font-size: 21px;
       }
 
       span {
         padding: 0 10px;
         &.no-margin {
-          padding: 0 12px;
-          font-size: 16px;
+          padding: 0 9px;
+          font-size: 13px;
+           @media (min-width: 960px) {
+               padding: 0 10px;
+               font-size: 12px;
+           }
         }
         &:last-child {
           padding-right: 0 !important;
