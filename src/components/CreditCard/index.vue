@@ -61,7 +61,6 @@ export default {
     cardNumber(newValue) {
       this.flag = identifyCardFlag(newValue);
     },
-
   },
   computed: {
     nameCardComputed() {
