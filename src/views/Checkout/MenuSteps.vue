@@ -1,17 +1,18 @@
 <template>
   <div class="menu">
         <v-btn icon class="menu__btn">
-          <v-icon color="#fff" size="20">fa-chevron-left</v-icon>
+          <v-icon color="#fff" size="23">fa-chevron-left</v-icon>
         </v-btn>
         <p class="menu__text d-none d-md-block">Alterar forma de pagamento</p>
         <p class="menu__title d-md-none">
-          <b>Etapa 2</b> de 3
+          <b>Etapa {{currentIndex + 1}}</b> <span v-if="steps.length > 0">de {{steps.length}}</span>
         </p>
         <div class="d-none d-md-block">
           <ul class="steps">
-            <li><v-icon color="#de4b4b" size="23">mdi-check-circle</v-icon><span>Carrinho</span></li>
-            <li><span class="steps__number">2</span><span>Pagamento</span></li>
-            <li><span class="steps__number">3</span><span>Confirmação</span></li>
+            <li v-for="(step, index) in steps" :key="step.name">
+              <span class="steps__number" v-if="index >= currentIndex">{{index + 1}}</span>
+              <span class="steps__number" v-else><v-icon color="#de4b4b" size="23">mdi-check-circle</v-icon></span>
+              <span>{{step.name}}</span></li>
           </ul>
         </div>
       </div>
@@ -19,6 +20,15 @@
 
 <script>
 export default {
+  props: {
+    currentIndex: {
+      default: 0,
+    },
+    steps: {
+      required: true,
+      type: Array,
+    },
+  },
 
 };
 </script>
@@ -59,6 +69,8 @@ export default {
             font-weight: bold;
             line-height: 1;
             padding-top: 1px;
+            margin: 0;
+            margin-right: 7px;
           }
         li {
           margin-left: 56px;
@@ -83,9 +95,6 @@ export default {
              &::after {
                content: none;
              }
-          }
-          span {
-            margin-left: 8px;
           }
         }
       }

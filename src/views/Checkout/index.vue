@@ -1,7 +1,7 @@
 <template>
   <div id="checkout">
     <div class="app-checkout">
-      <menu-steps />
+      <menu-steps :current-index="1" :steps="steps"/>
       <v-row no-gutters>
         <v-col>
           <div class="content">
@@ -179,6 +179,7 @@ export default {
       rotate: false,
       cardValid: false,
       loading: false,
+      steps: [{ name: 'Carrinho' }, { name: 'Pagamento' }, { name: 'Confirmação' }],
       payments: [
         {
           id: 1,
