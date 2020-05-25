@@ -4,7 +4,7 @@ module.exports = {
     'vuetify',
   ],
   pwa: {
-    name: 'Bexs',
+    name: 'Demo Shop',
     themeColor: '#de4b4b',
     msTileColor: '#de4b4b',
     // configure the manifest options
