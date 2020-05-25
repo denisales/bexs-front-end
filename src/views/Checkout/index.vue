@@ -264,7 +264,7 @@ export default {
         this.loading = true;
         await pagamentoService.pagar(this.form);
       } catch (error) {
-        console.log(error);
+        this.$root.$snackBar.open({ color: 'error', message: 'Erro ao salvar, tente novamente mais tarde' });
       } finally {
         setTimeout(() => {
           this.loading = false;
