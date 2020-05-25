@@ -1,22 +1,7 @@
 <template>
   <div id="checkout">
     <div class="app-checkout">
-      <div class="menu">
-        <v-btn icon class="menu__btn">
-          <v-icon color="#fff" size="20">fa-chevron-left</v-icon>
-        </v-btn>
-        <p class="menu__text d-none d-md-block">Alterar forma de pagamento</p>
-        <p class="menu__title d-md-none">
-          <b>Etapa 2</b> de 3
-        </p>
-        <div class="d-none d-md-block">
-          <ul class="steps">
-            <li><v-icon color="#de4b4b" size="22">mdi-check-circle</v-icon><span>Carrinho</span></li>
-            <li><span class="steps__number">2</span><span>Pagamento</span></li>
-            <li><span class="steps__number">3</span><span>Confirmação</span></li>
-          </ul>
-        </div>
-      </div>
+      <menu-steps />
       <v-row no-gutters>
         <v-col>
           <div class="content">
@@ -60,7 +45,6 @@
                           type="text"
                           inputmode="numeric"
                           label="Número do cartão"
-                          @focus="rotate = false"
                         ></v-text-field>
                       </validation-provider>
                     </v-col>
@@ -75,7 +59,6 @@
                           class="mb-1 mb-md-3"
                           :error-messages="errors"
                           color="grey"
-                          @focus="rotate = false"
                           v-model="form.name"
                           label="Nome (igual ao cartão)"
                         ></v-text-field>
@@ -99,7 +82,6 @@
                           inputmode="numeric"
                           v-mask="'##/##'"
                           v-model="form.expirationDate"
-                          @focus="rotate = false"
                         ></v-text-field>
                       </validation-provider>
                     </v-col>
@@ -121,6 +103,7 @@
                           ref="code"
                           inputmode="numeric"
                           @focus="rotate = true"
+                          @blur="rotate = false"
                           maxlength="4"
                         >
                           <template v-slot:append>
@@ -151,7 +134,6 @@
                           item-value="value"
                           item-text="label"
                           return-object
-                          @focus="rotate = false"
                         >
                           <template v-slot:no-data>
                             <div class="pa-4 text-center">Sem conteúdo</div>
@@ -163,8 +145,9 @@
                   <v-row class="mt-md-10 d-flex justify-md-end">
                     <v-col md="7">
                       <v-btn
+                        :loading="loading"
                         type="submit"
-                        x-large
+                        large
                         color="color1"
                         dark
                         block
@@ -185,14 +168,17 @@
 
 <script>
 import CreditCard from '@/components/CreditCard/index.vue';
+import pagamentoService from '@/services/pagamentoService';
+import MenuSteps from './MenuSteps.vue';
 
 export default {
   name: 'Home',
-  components: { CreditCard },
+  components: { CreditCard, MenuSteps },
   data() {
     return {
       rotate: false,
       cardValid: false,
+      loading: false,
       payments: [
         {
           id: 1,
@@ -237,12 +223,8 @@ export default {
         const cardnumber = newValue.replace(/[^0-9]+/g, '');
         if (cardnumber.length >= 13) {
           const { valid } = await this.$refs.cardNumberProvider.validateSilent();
-          if (!valid) {
-            this.cardValid = false;
-            return;
-          }
-          this.$refs.cardNumber.blur();
-          this.cardValid = true;
+          console.log(valid);
+          this.cardValid = valid;
           return;
         }
         this.cardValid = false;
@@ -262,7 +244,16 @@ export default {
     async submit() {
       const isValid = await this.$refs.form.validate();
       if (!isValid) return;
-      console.log('Enviou');
+      try {
+        this.loading = true;
+        await pagamentoService.pagar(this.form);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
+      }
     },
   },
 };
@@ -297,100 +288,6 @@ export default {
         bottom: 0;
         top: 0;
         height: 100%;
-      }
-    }
-
-    .menu {
-      z-index: 1;
-      padding: 0 40px;
-      margin-top: 30px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      @media (min-width: 960px) {
-        padding: 0 64px;
-        margin-top: 53px;
-        justify-content: space-between;
-      }
-
-      .steps {
-        display: flex;
-        align-items: center;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-          &__number {
-            border: 1px solid var(--color-1);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            line-height: 1;
-          }
-        li {
-          margin-left: 56px;
-          color: var(--color-1);
-          font-size: 13px;
-          display: flex;
-          align-items: center;
-          position: relative;
-          &::after {
-            content: '';
-            display: block;
-            width: 8px;
-            height: 8px;
-            border: 2px solid var(--color-1);
-            border-left: 0;
-            border-bottom: 0;
-            position: absolute;
-            right: -28px;
-            transform: rotate(45deg);
-          }
-          &:last-of-type{
-             &::after {
-               content: none;
-             }
-          }
-          span {
-            margin-left: 8px;
-          }
-        }
-      }
-
-      &__text {
-        color: #fff;
-        font-size: 13px;
-        margin: 0;
-        margin-left: 24px;
-        @media (min-width: 960px) {
-          margin-left: 40px;
-        }
-      }
-
-      &__title {
-        color: #fff;
-        font-size: 13px;
-        margin: 0;
-
-        @media (min-width: 960px) {
-          color: var(--color-1);
-        }
-      }
-
-      &__btn {
-        position: absolute;
-        left: 20px;
-        @media (min-width: 960px) {
-          left: 60px;
-        }
       }
     }
 
