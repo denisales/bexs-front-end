@@ -162,12 +162,12 @@ export default {
 
   .is-valid & {
     .front {
-      background: url("~@/assets/bg-card-front-valid.svg") no-repeat center,
+      background: url("~@/assets/imgs/bg-card-front-valid.svg") no-repeat center,
         #134868 !important;
       background-size: cover !important;
     }
     .back {
-      background: url("~@/assets/bg-card-back-valid.svg") no-repeat center,
+      background: url("~@/assets/imgs/bg-card-back-valid.svg") no-repeat center,
         #134868 !important;
       background-size: cover !important;
     }
@@ -201,14 +201,14 @@ export default {
       }
     }
     .front {
-      background: url("~@/assets/bg-card-front.svg") no-repeat center, #727272;
+      background: url("~@/assets/imgs/bg-card-front.svg") no-repeat center, #727272;
       background-size: cover;
       flex-wrap: wrap;
       align-content: space-between;
       backface-visibility: hidden;
     }
     .back {
-      background: url("~@/assets/bg-card-back.svg") no-repeat center, #727272;
+      background: url("~@/assets/imgs/bg-card-back.svg") no-repeat center, #727272;
       background-size: cover;
       align-items: center;
       justify-content: center;
@@ -246,7 +246,7 @@ export default {
 
     .logo {
       display: block;
-      background: url('~@/assets/sprite-flags.png') no-repeat;
+      background: url('~@/assets/imgs/sprite-flags.png') no-repeat;
       &--mastercard{
         background-position: -73px -50px;
         width: 55px;

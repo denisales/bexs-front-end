@@ -1,7 +1,7 @@
 <template>
   <div id="checkout">
     <div class="app-checkout">
-      <menu-steps :current-index="1" :steps="steps"/>
+      <menu-steps :current-index="1" :steps="steps" />
       <v-row no-gutters>
         <v-col>
           <div class="content">
@@ -128,12 +128,14 @@
                           :error-messages="errors"
                           :items="payments"
                           color="grey"
-                          label="Número de parcelas"
+                          :label="loadingPaymets ? 'Carregando...' : 'Número de parcelas'"
                           append-icon="fa-chevron-down"
                           v-model="form.payment"
                           item-value="value"
                           item-text="label"
                           return-object
+                          :loading="loadingPaymets"
+                          :disabled="loadingPaymets"
                         >
                           <template v-slot:no-data>
                             <div class="pa-4 text-center">Sem conteúdo</div>
@@ -179,37 +181,13 @@ export default {
       rotate: false,
       cardValid: false,
       loading: false,
-      steps: [{ name: 'Carrinho' }, { name: 'Pagamento' }, { name: 'Confirmação' }],
-      payments: [
-        {
-          id: 1,
-          qtd: 1,
-          value: 12000,
-          interestPayment: false,
-          label: '1x R$ 12.000,00 sem juros',
-        },
-        {
-          id: 1,
-          qtd: 6,
-          value: 2000,
-          interestPayment: false,
-          label: '6x R$ 2.000,00 sem juros',
-        },
-        {
-          id: 1,
-          qtd: 12,
-          value: 1000,
-          interestPayment: false,
-          label: '12x R$ 1.000,00 sem juros',
-        },
-        {
-          id: 1,
-          qtd: 24,
-          value: 50,
-          interestPayment: true,
-          label: '24x R$ 500,00 com juros',
-        },
+      loadingPaymets: false,
+      steps: [
+        { name: 'Carrinho' },
+        { name: 'Pagamento' },
+        { name: 'Confirmação' },
       ],
+      payments: [],
       form: {
         cardNumber: '',
         code: '',
@@ -223,8 +201,9 @@ export default {
       async handler(newValue) {
         const cardnumber = newValue.replace(/[^0-9]+/g, '');
         if (cardnumber.length >= 13) {
-          const { valid } = await this.$refs.cardNumberProvider.validateSilent();
-          console.log(valid);
+          const {
+            valid,
+          } = await this.$refs.cardNumberProvider.validateSilent();
           this.cardValid = valid;
           return;
         }
@@ -242,6 +221,42 @@ export default {
     },
   },
   methods: {
+    getPayments() {
+      this.loadingPaymets = true;
+      setTimeout(() => {
+        this.payments = [
+          {
+            id: 1,
+            qtd: 1,
+            value: 12000,
+            interestPayment: false,
+            label: '1x R$ 12.000,00 sem juros',
+          },
+          {
+            id: 1,
+            qtd: 6,
+            value: 2000,
+            interestPayment: false,
+            label: '6x R$ 2.000,00 sem juros',
+          },
+          {
+            id: 1,
+            qtd: 12,
+            value: 1000,
+            interestPayment: false,
+            label: '12x R$ 1.000,00 sem juros',
+          },
+          {
+            id: 1,
+            qtd: 24,
+            value: 50,
+            interestPayment: true,
+            label: '24x R$ 500,00 com juros',
+          },
+        ];
+        this.loadingPaymets = false;
+      }, 2000);
+    },
     async submit() {
       const isValid = await this.$refs.form.validate();
       if (!isValid) return;
@@ -257,20 +272,28 @@ export default {
       }
     },
   },
+  created() {
+    this.getPayments();
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 #checkout {
   height: 100%;
+  background: #f7f7f7;
   .app-checkout {
     max-width: 1024px;
     width: 100%;
+    height: 100%;
     margin: 0 auto;
     position: relative;
     background: #fff;
     padding: 80px 40px 20px;
     @media (min-width: 960px) {
+      box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+      height: auto;
+      margin-top: 40px;
       padding: 123px 64px 50px;
     }
     &::before {
@@ -307,7 +330,7 @@ export default {
         color: #fff;
         &::before {
           content: "";
-          background: url("~@/assets/icon-card.svg") no-repeat center;
+          background: url("~@/assets/imgs/icon-card.svg") no-repeat center;
           background-size: cover;
           display: block;
           width: 40px;
