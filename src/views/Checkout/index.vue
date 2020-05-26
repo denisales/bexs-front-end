@@ -174,7 +174,7 @@ import pagamentoService from '@/services/pagamentoService';
 import MenuSteps from './MenuSteps.vue';
 
 export default {
-  name: 'Home',
+  name: 'Checkout',
   components: { CreditCard, MenuSteps },
   data() {
     return {

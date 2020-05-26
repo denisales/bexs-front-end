@@ -5,7 +5,7 @@ const flags = [
   { name: 'dinersclub', test: '^3(?:0[0-5]|[68][0-9])[0-9]{11}' },
   { name: 'discover', test: '^(?:6011|65\\d{0,2}|64[4-9]\\d?)\\d{0,12}' },
   { name: 'maestro', test: '^(?:5[0678]\\d{0,2}|6304|67\\d{0,2})\\d{0,12}' },
-  // { name: 'JCB', test: '^(?:2131|1800|35\d{3})\d{11}' },
+  { name: 'JCB', test: '^(?:35\\d{0,2})\\d{0,12}' },
 ];
 export default (value) => {
   const valueString = String(value);
