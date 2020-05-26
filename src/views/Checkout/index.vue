@@ -308,7 +308,7 @@ export default {
       height: 239px;
       z-index: 0;
       @media (min-width: 960px) {
-        width: 34%;
+        width: 36%;
         bottom: 0;
         top: 0;
         height: 100%;
