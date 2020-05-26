@@ -6,6 +6,9 @@ Desenvolver uma aplicação front-end de acordo com as especificações descrita
 ## Projeto
 O projeto foi desenvolvido pensando em algo grande e escalável, por isso optei em utilizar o framework front-end Vue.js junto com Vue CLI para inicializar as estruturas de pastas.
 
+### Link do projeto:
+[Demo Shop](https://gracious-mayer-2d6411.netlify.app/)
+
 
 ## Dependências do projeto e sua utilização
 
