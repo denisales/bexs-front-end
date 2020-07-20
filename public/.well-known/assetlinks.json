@@ -1,0 +1,10 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.netlify.gracious_mayer_2d6411.twa",
+      "sha256_cert_fingerprints": [
+        "C1:D1:C7:31:81:8F:0D:4E:3A:2F:B6:E0:FC:E6:6C:70:37:15:10:9F:F2:C3:DF:C1:3D:41:F9:77:61:A7:02:7C"
+      ]
+    }
+  }]
